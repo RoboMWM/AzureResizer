@@ -24,7 +24,8 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>*.*</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.properties</include>
                 </includes>
             </resource>
         </resources>
