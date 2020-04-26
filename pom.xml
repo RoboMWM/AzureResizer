@@ -49,7 +49,8 @@
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <artifactSet>
                         <includes>
-                            <include>*:*</include>
+                            <include>com.microsoft.azure:azure</include>
+                            <include>com.microsoft.azure:azure-mgmt-compute</include>
                         </includes>
                         <excludes>
                             <exclude>com.robomwm:AzureResizer</exclude>
