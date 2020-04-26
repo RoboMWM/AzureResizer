@@ -26,6 +26,11 @@ public class VirtualMachineController
 
     public VirtualMachineController(Plugin plugin) throws IOException, UnsupportedOperationException
     {
+        FileConfiguration configuration = plugin.getConfig();
+        configuration.addDefault("resourceGroup", "blegh");
+        configuration.addDefault("vmName", "ya");
+        configuration.options().copyDefaults(true);
+        plugin.saveConfig();
         File credsFile = new File(plugin.getDataFolder() + File.separator + "creds.properties");
         credsFile.getParentFile().mkdirs();
         if (!credsFile.exists())
@@ -36,7 +41,6 @@ public class VirtualMachineController
         }
 
         azure = Azure.configure().withLogLevel(LogLevel.BASIC).authenticate(credsFile).withDefaultSubscription();
-        FileConfiguration configuration = plugin.getConfig();
         vm = azure.virtualMachines().getByResourceGroup(configuration.getString("resourceGroup"), configuration.getString("vmName"));
     }
 
