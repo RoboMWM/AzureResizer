@@ -20,10 +20,12 @@ public class Restarter
 {
     private BukkitTask restartTask;
     private String kickMessage;
+    private String warnMessage;
 
-    public Restarter(Plugin plugin, String kickMessage)
+    public Restarter(Plugin plugin, String kickMessage, String warnMessage)
     {
         this.kickMessage = kickMessage;
+        this.warnMessage = warnMessage;
     }
 
     public boolean cancelRestart()
@@ -81,8 +83,7 @@ public class Restarter
                 if (plugin.getServer().getOnlinePlayers().size() > 0)
                 {
                     plugin.getLogger().warning("Was going to restart, but players were on the server.");
-                    plugin.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE +
-                            "Regularly scheduled server backup and restart will occur in 2 minutes.");
+                    plugin.getServer().broadcastMessage(warnMessage);
                     new BukkitRunnable()
                     {
                         @Override

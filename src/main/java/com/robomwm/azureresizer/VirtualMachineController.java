@@ -2,6 +2,7 @@ package com.robomwm.azureresizer;
 
 import com.microsoft.azure.management.Azure;
 import com.microsoft.azure.management.compute.VirtualMachine;
+import com.microsoft.azure.management.compute.VirtualMachineSizeTypes;
 import com.microsoft.rest.LogLevel;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -20,6 +21,8 @@ public class VirtualMachineController
 {
     private Azure azure;
     private VirtualMachine vm;
+    private VirtualMachineSizeTypes upgradedType = VirtualMachineSizeTypes.STANDARD_B1MS;
+    private VirtualMachineSizeTypes freeType = VirtualMachineSizeTypes.STANDARD_B1S;
 
     public VirtualMachineController(Plugin plugin) throws IOException, UnsupportedOperationException
     {
@@ -46,18 +49,18 @@ public class VirtualMachineController
         }
     }
 
-    private void upgrade()
+    public void upgrade()
     {
-        //TODO resize up
+        vm.update().withSize(upgradedType).applyAsync();
     }
 
-    private void downgrade()
+    public void downgrade()
     {
-        //TODO resize down
+        vm.update().withSize(freeType).applyAsync();
     }
 
-    private boolean isUpgraded()
+    public boolean isUpgraded()
     {
-        //TODO return if == vm type that upgrade() resizes to
+        return vm.size() == upgradedType;
     }
 }

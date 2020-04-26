@@ -1,0 +1,5 @@
+name: AzureResizer
+version: ${project.version}
+author: RoboMWM
+main: com.robomwm.azureresizer.AzureResizer
+api-version: '1.13'
