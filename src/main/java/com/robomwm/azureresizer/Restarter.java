@@ -91,12 +91,12 @@ public class Restarter
                         {
                             for (Player player : plugin.getServer().getOnlinePlayers())
                                 player.kickPlayer(kickMessage);
-                            plugin.getServer().spigot().restart();
+                            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart memes");
                         }
                     }.runTaskLater(plugin, 2400L);
                 }
                 else
-                    plugin.getServer().spigot().restart();
+                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart memes");
             }
         }.runTaskLater(plugin, ticks);
     }
