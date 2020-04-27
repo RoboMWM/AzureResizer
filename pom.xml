@@ -52,12 +52,10 @@
                             <include>com.microsoft.azure:azure</include>
                             <include>com.microsoft.azure:azure-mgmt-compute</include>
                         </includes>
-                        <excludes>
-                            <exclude>com.robomwm:AzureResizer</exclude>
-                        </excludes>
                     </artifactSet>
                     <relocations>
                         <relocation>
+                            <pattern>*</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                     </relocations>
