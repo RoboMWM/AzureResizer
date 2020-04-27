@@ -54,7 +54,7 @@
                     </artifactSet>
                     <relocations>
                         <relocation>
-                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded.</shadedPattern>
                             <excludes>
                                 <exclude>com.robomwm.**</exclude>
                                 <exclude>plugin.yml</exclude>
