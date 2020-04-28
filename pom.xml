@@ -54,15 +54,11 @@
                     </artifactSet>
                     <relocations>
                         <relocation>
-                            <pattern>com.google.guava</pattern>
+                            <pattern>com.google</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>org.slf4j</pattern>
-                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.ow2.asm</pattern>
+                            <pattern>org</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
@@ -102,7 +98,7 @@
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>javax.activation</pattern>
+                            <pattern>javax</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
@@ -110,7 +106,7 @@
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>net.minidev</pattern>
+                            <pattern>net</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
@@ -122,11 +118,23 @@
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>javax.xml.bind</pattern>
+                            <pattern>joda-time</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>joda-time</pattern>
+                            <pattern>okhttp3</pattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>okio</pattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>retrofit2</pattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>rx</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                     </relocations>
