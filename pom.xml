@@ -113,11 +113,15 @@
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>net</pattern>
+                            <pattern>com.nimbusds</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>com.nimbusds</pattern>
+                            <pattern>com.sun.activation.registries</pattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.microsoft.aad.adal4j</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
@@ -142,6 +146,14 @@
                         </relocation>
                         <relocation>
                             <pattern>rx</pattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.jcip.annotations</pattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.minidev</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                     </relocations>
