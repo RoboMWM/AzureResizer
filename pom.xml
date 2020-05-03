@@ -76,7 +76,7 @@
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>com.fasterxml.jackson.databind.ext</pattern>
+                            <pattern>com.fasterxml.jackson.databind</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
                     </relocations>
