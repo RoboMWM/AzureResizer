@@ -22,7 +22,7 @@ public class Restarter
     private String kickMessage;
     private String warnMessage;
 
-    public Restarter(Plugin plugin, String kickMessage, String warnMessage)
+    public Restarter(String kickMessage, String warnMessage)
     {
         this.kickMessage = kickMessage;
         this.warnMessage = warnMessage;
@@ -38,7 +38,7 @@ public class Restarter
         return false;
     }
 
-    public void scheduleRestart(Plugin plugin, String time)
+    public void scheduleRestart(AzureResizer plugin, String time)
     {
         try
         {
@@ -68,7 +68,7 @@ public class Restarter
 
     }
 
-    private void scheduleRestart(Plugin plugin, long ticks)
+    private void scheduleRestart(AzureResizer plugin, long ticks)
     {
         if (restartTask != null)
             restartTask.cancel();
@@ -80,6 +80,7 @@ public class Restarter
             @Override
             public void run()
             {
+                plugin.setTriggerUpgrade(true);
                 if (plugin.getServer().getOnlinePlayers().size() > 0)
                 {
                     plugin.getLogger().warning("Was going to restart, but players were on the server.");
@@ -99,10 +100,5 @@ public class Restarter
                     plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart memes");
             }
         }.runTaskLater(plugin, ticks);
-    }
-
-    private void upgrade()
-    {
-
     }
 }
