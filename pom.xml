@@ -52,7 +52,6 @@
                             <exclude>javax:javax</exclude>
                             <exclude>javax.activation:activation</exclude>
                             <exclude>javax.xml.bind:jaxb-api</exclude>
-                            <exclude>com.sun.mail:javax.mail</exclude>
                         </excludes>
                     </artifactSet>
                     <relocations>
