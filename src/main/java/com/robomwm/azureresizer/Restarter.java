@@ -76,8 +76,9 @@ public class Restarter
 
         int totalSeconds = (int)ticks / 20;
         int totalMinutes = totalSeconds / 60;
+
         int seconds = totalSeconds % 60;
-        int hours = seconds / 60;
+        int hours = totalSeconds / 60;
         int minutes = hours % 60;
 
         plugin.getLogger().info("Scheduling a restart to occur in " + ticks + " ticks. (" + hours + ":" + minutes + ":" + seconds + " or " + totalMinutes + ")");
