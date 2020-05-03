@@ -75,6 +75,10 @@
                             <pattern>commons-codec</pattern>
                             <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>com.fasterxml.jackson.databind.ext</pattern>
+                            <shadedPattern>com.robomwm.azureresizer.shaded</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
