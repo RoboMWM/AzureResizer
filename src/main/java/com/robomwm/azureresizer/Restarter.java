@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Created on 1/12/2019.
@@ -44,7 +45,9 @@ public class Restarter
         {
             //Java's time/calendar/whatever API is stoopid
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new SimpleDateFormat("HH:mm").parse(time));
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+            calendar.setTime(dateFormat.parse(time));
             Calendar currentCalendar = Calendar.getInstance();
             currentCalendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY));
             currentCalendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE));
