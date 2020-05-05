@@ -77,12 +77,12 @@ public class Restarter
 
         int totalSeconds = (int)ticks / 20;
         int totalMinutes = totalSeconds / 60;
+        int[] niceFormat = splitToComponentTimes(totalSeconds);
 
-        int seconds = totalSeconds % 60;
-        int hours = totalSeconds / 60;
-        int minutes = hours % 60;
-
-        plugin.getLogger().info("Scheduling a restart to occur in " + ticks + " ticks. (" + hours + ":" + minutes + ":" + seconds + " or " + totalMinutes + ")");
+        plugin.getLogger().info("Scheduling a restart to occur in " + ticks + " ticks. (" + niceFormat[0] + ":" + niceFormat[1] + ":" + niceFormat[2] + ")");
+        plugin.getLogger().info("which is " + totalMinutes + " minutes");
+        plugin.getLogger().info("warn: " + warnMessage);
+        plugin.getLogger().info("kick: " + kickMessage);
 
         return restartTask = new BukkitRunnable()
         {
@@ -109,5 +109,19 @@ public class Restarter
                     plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restart memes");
             }
         }.runTaskLater(plugin, ticks);
+    }
+
+    //I'm very bad at math
+    //https://stackoverflow.com/a/6118964
+    public static int[] splitToComponentTimes(int totalSeconds)
+    {
+        int hours = totalSeconds / 3600;
+        int remainder = totalSeconds - hours * 3600;
+        int mins = remainder / 60;
+        remainder = remainder - mins * 60;
+        int secs = remainder;
+
+        int[] ints = {hours , mins , secs};
+        return ints;
     }
 }
