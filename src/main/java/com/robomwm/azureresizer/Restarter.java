@@ -39,7 +39,7 @@ public class Restarter
         return false;
     }
 
-    public void scheduleRestart(AzureResizer plugin, String time)
+    public BukkitTask scheduleRestart(AzureResizer plugin, String time)
     {
         try
         {
@@ -61,15 +61,16 @@ public class Restarter
 
             long ticksToScheduleRestart = (restartTime - System.currentTimeMillis()) / 50;
 
-            scheduleRestart(plugin, ticksToScheduleRestart);
+            return scheduleRestart(plugin, ticksToScheduleRestart);
         }
         catch (ParseException e)
         {
             e.printStackTrace();
         }
+        return null;
     }
 
-    private void scheduleRestart(AzureResizer plugin, long ticks)
+    private BukkitTask scheduleRestart(AzureResizer plugin, long ticks)
     {
         if (restartTask != null)
             restartTask.cancel();
@@ -83,7 +84,7 @@ public class Restarter
 
         plugin.getLogger().info("Scheduling a restart to occur in " + ticks + " ticks. (" + hours + ":" + minutes + ":" + seconds + " or " + totalMinutes + ")");
 
-        restartTask = new BukkitRunnable()
+        return restartTask = new BukkitRunnable()
         {
             @Override
             public void run()

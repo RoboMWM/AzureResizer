@@ -3,3 +3,10 @@ version: '${project.version}-${git.commit.id.abbrev}'
 author: RoboMWM
 main: com.robomwm.azureresizer.AzureResizer
 api-version: '1.13'
+commands:
+  azureresizer:
+    usage: /azureresizer
+    permission: azureresizer.resize
+permissions:
+  azureresizer.resize:
+    default: op
