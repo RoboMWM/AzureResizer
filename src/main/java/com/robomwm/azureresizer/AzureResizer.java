@@ -80,10 +80,16 @@ public class AzureResizer extends JavaPlugin
             e.printStackTrace();
         }
 
-        if (!upgraded)
-            virtualMachineController.upgrade();
-        else
+        if (upgraded)
+        {
             virtualMachineController.downgrade();
+            getLogger().info("Downgrading server");
+        }
+        else
+        {
+            virtualMachineController.upgrade();
+            getLogger().info("Upgrading server");
+        }
     }
 
     public void setTriggerUpgrade(boolean triggerUpgrade)
