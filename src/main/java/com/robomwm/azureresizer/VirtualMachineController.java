@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created on 4/13/2020.
@@ -55,16 +56,34 @@ public class VirtualMachineController
 
     public void upgrade()
     {
-        vm.update().withSize(upgradedType).applyAsync();
+        new ResizeThread(vm, upgradedType).start();
     }
 
     public void downgrade()
     {
-        vm.update().withSize(freeType).applyAsync();
+        new ResizeThread(vm, freeType).start();
     }
 
     public boolean isUpgraded()
     {
         return vm.size() == upgradedType;
+    }
+}
+
+class ResizeThread extends Thread
+{
+    private VirtualMachine vm;
+    private VirtualMachineSizeTypes type;
+
+    public ResizeThread(VirtualMachine vm, VirtualMachineSizeTypes type)
+    {
+        this.vm = vm;
+        this.type = type;
+    }
+
+    @Override
+    public void run()
+    {
+        vm.update().withSize(type).apply();
     }
 }

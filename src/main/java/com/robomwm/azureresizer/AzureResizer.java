@@ -90,15 +90,6 @@ public class AzureResizer extends JavaPlugin
             virtualMachineController.upgrade();
             getLogger().info("Upgrading server");
         }
-
-        try
-        {
-            Thread.sleep(7000);
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
     }
 
     public void setTriggerUpgrade(boolean triggerUpgrade)
