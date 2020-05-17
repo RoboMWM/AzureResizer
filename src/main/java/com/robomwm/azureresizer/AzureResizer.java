@@ -82,12 +82,12 @@ public class AzureResizer extends JavaPlugin
 
         if (upgraded)
         {
-            virtualMachineController.downgrade();
+//            virtualMachineController.downgrade();
             getLogger().info("Downgrading server");
         }
         else
         {
-            virtualMachineController.upgrade();
+//            virtualMachineController.upgrade();
             getLogger().info("Upgrading server");
         }
     }

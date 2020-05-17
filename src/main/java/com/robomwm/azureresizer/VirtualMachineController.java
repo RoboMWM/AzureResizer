@@ -41,7 +41,7 @@ public class VirtualMachineController
             throw new UnsupportedOperationException();
         }
 
-        azure = Azure.configure().withLogLevel(LogLevel.BASIC).authenticate(credsFile).withDefaultSubscription();
+        azure = Azure.configure().withLogLevel(LogLevel.BODY_AND_HEADERS).authenticate(credsFile).withDefaultSubscription();
         vm = azure.virtualMachines().getByResourceGroup(configuration.getString("resourceGroup"), configuration.getString("vmName"));
     }
 
