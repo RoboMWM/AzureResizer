@@ -47,10 +47,10 @@ public class AzureResizer extends JavaPlugin
 
         if (!upgraded)
             restartTask = new Restarter("Upgrading server, you can rejoin in a couple minutes, and there will be less lag.", "Server upgrade will occur in two minutes.")
-                    .scheduleRestart(this, "10:00");
+                    .scheduleRestart(this, "08:00"); //9am DST
         else
             restartTask = new Restarter("Server downgrading to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat at http://r.robomwm.com/mememap", "Server downgrading in two minutes to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat!")
-                    .scheduleRestart(this, "01:00");
+                    .scheduleRestart(this, "19:30"); //8:30pm DST
     }
 
     @Override
