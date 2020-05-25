@@ -51,7 +51,8 @@ public class AzureResizer extends JavaPlugin
 //        else
 //            restartTask = new Restarter("Server downgrading to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat at http://r.robomwm.com/mememap", "Server downgrading in two minutes to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat!")
 //                    .scheduleRestart(this, "19:30"); //8:30pm DST
-        restartTask = new Restarter("Server downgrading due to no players being on the server - so if you see this message then there's a problem! Please report this!",
+        if (upgraded)
+            restartTask = new Restarter("Server downgrading due to no players being on the server - so if you see this message then there's a problem! Please report this!",
                 "No players detected on this server, will downgrade shortly. If you see this message then this is an error, please report this issue in chat right now! Thanks!")
                 .scheduleRestart(this, 3600 * 20); //1 hour
     }
