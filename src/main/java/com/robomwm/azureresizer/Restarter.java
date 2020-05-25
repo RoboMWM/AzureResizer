@@ -70,7 +70,7 @@ public class Restarter
         return null;
     }
 
-    private BukkitTask scheduleRestart(AzureResizer plugin, long ticks)
+    public BukkitTask scheduleRestart(AzureResizer plugin, long ticks)
     {
         if (restartTask != null)
             restartTask.cancel();

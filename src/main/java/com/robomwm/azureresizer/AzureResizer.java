@@ -24,10 +24,10 @@ import java.util.Calendar;
  */
 public class AzureResizer extends JavaPlugin
 {
-    private boolean triggerUpgrade;
-    private boolean upgraded;
+    private static boolean triggerUpgrade;
+    public static boolean upgraded;
     private VirtualMachineController virtualMachineController;
-    private BukkitTask restartTask;
+    public static BukkitTask restartTask;
 
     @Override
     public void onEnable()
@@ -45,12 +45,15 @@ public class AzureResizer extends JavaPlugin
             return;
         }
 
-        if (!upgraded)
-            restartTask = new Restarter("Upgrading server, you can rejoin in a couple minutes, and there will be less lag.", "Server upgrade will occur in two minutes.")
-                    .scheduleRestart(this, "08:00"); //9am DST
-        else
-            restartTask = new Restarter("Server downgrading to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat at http://r.robomwm.com/mememap", "Server downgrading in two minutes to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat!")
-                    .scheduleRestart(this, "19:30"); //8:30pm DST
+//        if (!upgraded)
+//            restartTask = new Restarter("Upgrading server, you can rejoin in a couple minutes, and there will be less lag.", "Server upgrade will occur in two minutes.")
+//                    .scheduleRestart(this, "08:00"); //9am DST
+//        else
+//            restartTask = new Restarter("Server downgrading to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat at http://r.robomwm.com/mememap", "Server downgrading in two minutes to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat!")
+//                    .scheduleRestart(this, "19:30"); //8:30pm DST
+        restartTask = new Restarter("Server downgrading due to no players being on the server - so if you see this message then there's a problem! Please report this!",
+                "No players detected on this server, will downgrade shortly. If you see this message then this is an error, please report this issue in chat right now! Thanks!")
+                .scheduleRestart(this, 3600 * 20); //1 hour
     }
 
     @Override
@@ -64,7 +67,7 @@ public class AzureResizer extends JavaPlugin
     @Override
     public void onDisable()
     {
-        if (restartTask == null || !triggerUpgrade)
+        if (!triggerUpgrade)
             return;
 
         File file = new File("AzureResizerUpgrade.metadata");
@@ -92,7 +95,7 @@ public class AzureResizer extends JavaPlugin
         }
     }
 
-    public void setTriggerUpgrade(boolean triggerUpgrade)
+    public static void setTriggerUpgrade(boolean triggerUpgrade)
     {
         this.triggerUpgrade = triggerUpgrade;
     }
