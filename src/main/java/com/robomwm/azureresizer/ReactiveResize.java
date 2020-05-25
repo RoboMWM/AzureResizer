@@ -18,11 +18,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ReactiveResize implements Listener
 {
     AzureResizer azureResizer;
+    VirtualMachineController controller;
 
-    public ReactiveResize(AzureResizer azureResizer)
+    public ReactiveResize(AzureResizer azureResizer, VirtualMachineController controller)
     {
         this.azureResizer = azureResizer;
         azureResizer.getServer().getPluginManager().registerEvents(this, azureResizer);
+        this.controller = controller;
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -32,7 +34,7 @@ public class ReactiveResize implements Listener
             return;
         login.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Server was sleeping and will now wake up. You can join within a couple minutes!");
         AzureResizer.setTriggerUpgrade(true);
-        Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "restartnow Performing server upgrade");
+        controller.upgrade();
     }
 
     @EventHandler
