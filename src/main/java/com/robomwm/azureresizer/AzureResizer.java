@@ -97,6 +97,6 @@ public class AzureResizer extends JavaPlugin
 
     public static void setTriggerUpgrade(boolean triggerUpgrade)
     {
-        this.triggerUpgrade = triggerUpgrade;
+        AzureResizer.triggerUpgrade = triggerUpgrade;
     }
 }
