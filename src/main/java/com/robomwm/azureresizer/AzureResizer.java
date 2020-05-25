@@ -45,6 +45,8 @@ public class AzureResizer extends JavaPlugin
             return;
         }
 
+        new ReactiveResize(this);
+
 //        if (!upgraded)
 //            restartTask = new Restarter("Upgrading server, you can rejoin in a couple minutes, and there will be less lag.", "Server upgrade will occur in two minutes.")
 //                    .scheduleRestart(this, "08:00"); //9am DST
