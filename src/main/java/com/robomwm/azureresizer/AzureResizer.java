@@ -45,7 +45,7 @@ public class AzureResizer extends JavaPlugin
             return;
         }
 
-        new ReactiveResize(this);
+        new ReactiveResize(this, virtualMachineController);
 
 //        if (!upgraded)
 //            restartTask = new Restarter("Upgrading server, you can rejoin in a couple minutes, and there will be less lag.", "Server upgrade will occur in two minutes.")
