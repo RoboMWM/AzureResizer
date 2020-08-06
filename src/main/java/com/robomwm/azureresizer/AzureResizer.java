@@ -56,7 +56,7 @@ public class AzureResizer extends JavaPlugin
         if (upgraded)
             restartTask = new Restarter("Server downgrading due to no players being on the server - so if you see this message then there's a problem! Please report this!",
                 "No players detected on this server, will downgrade shortly. If you see this message then this is an error, please report this issue in chat right now! Thanks!")
-                .scheduleRestart(this, 1800 * 20); //30 minutes
+                .scheduleRestart(this, 3600 * 20); //1 hour
     }
 
     @Override
