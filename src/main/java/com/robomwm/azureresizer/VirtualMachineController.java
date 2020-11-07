@@ -54,36 +54,26 @@ public class VirtualMachineController
         }
     }
 
-    public void upgrade()
-    {
-        new ResizeThread(vm, upgradedType).start();
-    }
-
-    public void downgrade()
-    {
-        new ResizeThread(vm, freeType).start();
-    }
-
     public boolean isUpgraded()
     {
-        return vm.size() == upgradedType;
+        return vm.size() != freeType;
     }
 }
 
-class ResizeThread extends Thread
-{
-    private VirtualMachine vm;
-    private VirtualMachineSizeTypes type;
-
-    public ResizeThread(VirtualMachine vm, VirtualMachineSizeTypes type)
-    {
-        this.vm = vm;
-        this.type = type;
-    }
-
-    @Override
-    public void run()
-    {
-        vm.update().withSize(type).apply();
-    }
-}
+//class ResizeThread extends Thread
+//{
+//    private VirtualMachine vm;
+//    private VirtualMachineSizeTypes type;
+//
+//    public ResizeThread(VirtualMachine vm, VirtualMachineSizeTypes type)
+//    {
+//        this.vm = vm;
+//        this.type = type;
+//    }
+//
+//    @Override
+//    public void run()
+//    {
+//        vm.update().withSize(type).apply();
+//    }
+//}

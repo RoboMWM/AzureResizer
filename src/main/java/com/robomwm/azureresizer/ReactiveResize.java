@@ -35,7 +35,8 @@ public class ReactiveResize implements Listener
         if (AzureResizer.upgraded)
             return;
         login.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Server was sleeping and will now wake up. You can join within a couple minutes!");
-        controller.upgrade();
+        azureResizer.setTriggerUpgrade(true);
+        azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "restartnow memes");
     }
 
     @EventHandler
