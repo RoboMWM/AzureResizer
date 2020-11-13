@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Created on 5/24/2020.
@@ -36,7 +37,14 @@ public class ReactiveResize implements Listener
             return;
         login.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Server was sleeping and will now wake up. You can join within a couple minutes!");
         azureResizer.setTriggerUpgrade(true);
-        azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "restartnow memes");
+        new BukkitRunnable()
+        {
+            @Override
+            public void run()
+            {
+                azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "restartnow memes");
+            }
+        }.runTask(azureResizer);
     }
 
     @EventHandler
