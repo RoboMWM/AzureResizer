@@ -1,6 +1,7 @@
 package com.robomwm.azureresizer;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -10,6 +11,10 @@ import org.bukkit.event.player.PlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created on 5/24/2020.
@@ -37,14 +42,48 @@ public class ReactiveResize implements Listener
             return;
         login.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Server was sleeping and will now wake up. You can join within a couple minutes!");
         azureResizer.setTriggerUpgrade(true);
-        new BukkitRunnable()
+
+        ProcessBuilder processBuilder = new ProcessBuilder("java -jar test.jar");
+        processBuilder.directory(azureResizer.getServer().getWorldContainer());
+        processBuilder.redirectOutput(ProcessBuilder.Redirect.PIPE);
+        processBuilder.redirectErrorStream(true);
+        try
         {
-            @Override
-            public void run()
+            Process updateProcess = processBuilder.start();
+            new BukkitRunnable()
             {
-                azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "restartnow memes");
-            }
-        }.runTask(azureResizer);
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        BufferedReader output = new BufferedReader(new InputStreamReader(updateProcess.getInputStream()));
+                        String outputLine;
+                        while ((outputLine = output.readLine()) != null)
+                        {
+                            azureResizer.getLogger().info(outputLine);
+                        }
+                        azureResizer.getLogger().info("resize terminated...?");
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }.runTaskAsynchronously(azureResizer);
+        }
+        catch (Exception e)
+        {
+            azureResizer.getLogger().severe("Unable to insta-resize, performing regular resize-after-restart");
+            new BukkitRunnable()
+            {
+                @Override
+                public void run()
+                {
+                    azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "restartnow memes");
+                }
+            }.runTask(azureResizer);
+        }
     }
 
     @EventHandler
