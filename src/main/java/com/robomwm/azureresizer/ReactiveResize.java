@@ -43,7 +43,7 @@ public class ReactiveResize implements Listener
         login.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Server was sleeping and will now wake up. You can join within a couple minutes!");
         azureResizer.setTriggerUpgrade(true);
 
-        ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "test.jar");
+        ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "AzureResizer.jar");
         processBuilder.directory(azureResizer.getServer().getWorldContainer());
         processBuilder.redirectOutput(ProcessBuilder.Redirect.PIPE);
         processBuilder.redirectErrorStream(true);
