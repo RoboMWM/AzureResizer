@@ -15,15 +15,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class ReactiveResize implements Listener
 {
     AzureResizer azureResizer;
-    VirtualMachineController controller;
 
-    public ReactiveResize(AzureResizer azureResizer, VirtualMachineController controller)
+    public ReactiveResize(AzureResizer azureResizer)
     {
         this.azureResizer = azureResizer;
         azureResizer.getServer().getPluginManager().registerEvents(this, azureResizer);
-        if (!AzureResizer.upgraded)
-            azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "update memes");
-        this.controller = controller;
     }
 
     @EventHandler(ignoreCancelled = true)

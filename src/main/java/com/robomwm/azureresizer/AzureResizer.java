@@ -20,26 +20,14 @@ public class AzureResizer extends JavaPlugin
 {
     private static boolean triggerUpgrade;
     public static boolean upgraded;
-    private VirtualMachineController virtualMachineController;
     public Restarter restarterInstance;
 
     @Override
     public void onEnable()
     {
-        try
-        {
-            virtualMachineController = new VirtualMachineController(this);
-            upgraded = virtualMachineController.isUpgraded();
-        }
-        catch (IOException | UnsupportedOperationException e)
-        {
-            e.printStackTrace();
-            getLogger().severe("Something bad happened.");
-            getPluginLoader().disablePlugin(this);
-            return;
-        }
+        upgraded = Runtime.getRuntime().maxMemory() > 662700033L;
 
-        new ReactiveResize(this, virtualMachineController);
+        new ReactiveResize(this);
 
         if (upgraded)
             restarterInstance = new Restarter("Server downgrading due to no players being on the server - so if you see this message then there's a problem! Please report this!",
