@@ -30,6 +30,7 @@ public class ReactiveResize implements Listener
         login.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, "Server was sleeping and will now wake up. You can join within a couple minutes!");
         azureResizer.setTriggerUpgrade();
         azureResizer.forceResize();
+        azureResizer.getLogger().info(login.getAddress().getHostAddress());
     }
 
     @EventHandler
@@ -56,7 +57,7 @@ public class ReactiveResize implements Listener
         if (Bukkit.getOnlinePlayers().size() > 1)
             return;
 
-        if (azureResizer.restarterInstance != null)
+        if (azureResizer.restarterInstance != null) //shouldn't ever be called. If it is, something wrong happened.
         {
             azureResizer.restarterInstance.cancelRestart();
             azureResizer.getLogger().severe("uh there was an already scheduled restart so ur logic wrong");

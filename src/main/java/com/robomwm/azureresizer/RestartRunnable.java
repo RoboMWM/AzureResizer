@@ -73,7 +73,7 @@ public class RestartRunnable implements Runnable
 
             try
             {
-                Thread.sleep(5L * 60000L);
+                Thread.sleep(20L * 60000L);
             }
             catch (InterruptedException e)
             {
@@ -89,8 +89,8 @@ public class RestartRunnable implements Runnable
             }
             finally
             {
-                plugin.getLogger().severe("Server has still not stopped for over 5 minutes! Forcing a resize now!!");
                 plugin.forceResize();
+                plugin.getLogger().severe("Server has still not stopped for over 20 minutes! Forcing a resize now!!");
                 new BukkitRunnable()
                 {
                     @Override
