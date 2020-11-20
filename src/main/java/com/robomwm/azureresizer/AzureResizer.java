@@ -1,21 +1,15 @@
 package com.robomwm.azureresizer;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.io.InputStreamReader;
 
 /**
  * Created on 4/13/2020.
@@ -27,7 +21,7 @@ public class AzureResizer extends JavaPlugin
     private static boolean triggerUpgrade;
     public static boolean upgraded;
     private VirtualMachineController virtualMachineController;
-    public static BukkitTask restartTask;
+    public Restarter restarterInstance;
 
     @Override
     public void onEnable()
@@ -47,16 +41,10 @@ public class AzureResizer extends JavaPlugin
 
         new ReactiveResize(this, virtualMachineController);
 
-//        if (!upgraded)
-//            restartTask = new Restarter("Upgrading server, you can rejoin in a couple minutes, and there will be less lag.", "Server upgrade will occur in two minutes.")
-//                    .scheduleRestart(this, "08:00"); //9am DST
-//        else
-//            restartTask = new Restarter("Server downgrading to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat at http://r.robomwm.com/mememap", "Server downgrading in two minutes to reduce costs. If you see this message and you regularly play Minecraft at this time, please let us know in the chat!")
-//                    .scheduleRestart(this, "19:30"); //8:30pm DST
         if (upgraded)
-            restartTask = new Restarter("Server downgrading due to no players being on the server - so if you see this message then there's a problem! Please report this!",
+            restarterInstance = new Restarter("Server downgrading due to no players being on the server - so if you see this message then there's a problem! Please report this!",
                 "No players detected on this server, will downgrade shortly. If you see this message then this is an error, please report this issue in chat right now! Thanks!")
-                .scheduleRestart(this, 1800 * 20); //30 minutes
+                .scheduleRestartMinutes(this, 30);
     }
 
     @Override
@@ -98,8 +86,55 @@ public class AzureResizer extends JavaPlugin
         }
     }
 
-    public static void setTriggerUpgrade(boolean triggerUpgrade)
+    public void setTriggerUpgrade()
     {
-        AzureResizer.triggerUpgrade = triggerUpgrade;
+        this.triggerUpgrade = true;
+    }
+
+    public void forceResize()
+    {
+        AzureResizer azureResizer = this;
+        ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "AzureResizer.jar");
+        processBuilder.directory(azureResizer.getServer().getWorldContainer());
+        processBuilder.redirectOutput(ProcessBuilder.Redirect.PIPE);
+        processBuilder.redirectErrorStream(true);
+        try
+        {
+            Process updateProcess = processBuilder.start();
+            new BukkitRunnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        BufferedReader output = new BufferedReader(new InputStreamReader(updateProcess.getInputStream()));
+                        String outputLine;
+                        while ((outputLine = output.readLine()) != null)
+                        {
+                            azureResizer.getLogger().info(outputLine);
+                        }
+                        azureResizer.getLogger().info("resize terminated...?");
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }.runTaskAsynchronously(azureResizer);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            azureResizer.getLogger().severe("Unable to insta-resize, performing regular resize-after-restart");
+            new BukkitRunnable()
+            {
+                @Override
+                public void run()
+                {
+                    azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "restartnow memes");
+                }
+            }.runTask(azureResizer);
+        }
     }
 }
