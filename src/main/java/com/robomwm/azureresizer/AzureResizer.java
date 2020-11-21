@@ -79,8 +79,12 @@ public class AzureResizer extends JavaPlugin
         this.triggerUpgrade = true;
     }
 
+    private Process updateProcess;
+
     public void forceResize()
     {
+        if (updateProcess != null)
+            return;
         AzureResizer azureResizer = this;
         ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", "AzureResizer.jar");
         processBuilder.directory(azureResizer.getServer().getWorldContainer());
@@ -88,7 +92,7 @@ public class AzureResizer extends JavaPlugin
         processBuilder.redirectErrorStream(true);
         try
         {
-            Process updateProcess = processBuilder.start();
+            updateProcess = processBuilder.start();
             new BukkitRunnable()
             {
                 @Override
