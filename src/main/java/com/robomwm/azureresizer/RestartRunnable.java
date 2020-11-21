@@ -38,9 +38,7 @@ public class RestartRunnable implements Runnable
             }
             catch (InterruptedException e)
             {
-                plugin.getLogger().info("Restart thread was interrupted (a player joined, prolly)");
-                e.printStackTrace();
-                plugin.getLogger().info("^^^ THIS IS NOT AN ERROR BTW JUST FOR THE CURIOUS THAT'S ALL ^^^");
+                plugin.getLogger().info("Restart thread was interrupted (a player joined, prolly. If a player did NOT just join, then this is an error!!)");
                 return;
             }
 
