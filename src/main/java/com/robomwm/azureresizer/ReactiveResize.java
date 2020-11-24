@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Created on 5/24/2020.
@@ -31,6 +32,14 @@ public class ReactiveResize implements Listener
         azureResizer.setTriggerUpgrade();
         azureResizer.forceResize();
         azureResizer.getLogger().info(login.getAddress().getHostAddress());
+        new BukkitRunnable()
+        {
+            @Override
+            public void run()
+            {
+                azureResizer.getServer().dispatchCommand(azureResizer.getServer().getConsoleSender(), "chunky pause");
+            }
+        }.runTask(azureResizer);
     }
 
     @EventHandler
