@@ -1,5 +1,6 @@
 package com.robomwm.azureresizer;
 
+import org.bukkit.plugin.IllegalPluginAccessException;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -42,35 +43,18 @@ public class RestartRunnable implements Runnable
                 return;
             }
 
-
-            plugin.setTriggerUpgrade();
-
-            if (plugin.getServer().getOnlinePlayers().size() > 0) //Probably not safe?
+            try
             {
-                plugin.getLogger().severe("What are you doing, there are players on the server!");
+                plugin.setTriggerUpgrade();
+                plugin.getLogger().info("Attempting a restart to resize...");
                 new BukkitRunnable()
                 {
                     @Override
                     public void run()
                     {
-                        plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "communicationconnector Server tried to resize, but players are on the server!");
+                        plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restartnow memes");
                     }
                 }.runTask(plugin);
-                return;
-            }
-
-            plugin.getLogger().info("Attempting a restart to resize...");
-            new BukkitRunnable()
-            {
-                @Override
-                public void run()
-                {
-                    plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "restartnow memes");
-                }
-            }.runTask(plugin);
-
-            try
-            {
                 Thread.sleep(20L * 60000L);
             }
             catch (InterruptedException e)
@@ -85,10 +69,14 @@ public class RestartRunnable implements Runnable
                     }
                 }.runTask(plugin);
             }
+            catch (IllegalPluginAccessException e)
+            {
+                plugin.getLogger().severe("Post-restart sleep was interrupted due to hang on server shutdown!!");
+            }
             finally
             {
                 plugin.forceResize();
-                plugin.getLogger().severe("Server has still not stopped for over 20 minutes! Forcing a resize now!!");
+                plugin.getLogger().severe("Server has not stopped due to an error or for over 20 minutes! Forcing a resize now!!");
                 new BukkitRunnable()
                 {
                     @Override

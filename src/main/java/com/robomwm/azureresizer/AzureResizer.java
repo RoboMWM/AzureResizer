@@ -49,6 +49,23 @@ public class AzureResizer extends JavaPlugin
         if (!triggerUpgrade)
             return;
 
+        writeMetadata();
+
+
+        if (upgraded)
+        {
+//            virtualMachineController.downgrade();
+            getLogger().info("Downgrading server");
+        }
+        else
+        {
+//            virtualMachineController.upgrade();
+            getLogger().info("Upgrading server");
+        }
+    }
+
+    public void writeMetadata()
+    {
         File file = new File("AzureResizerUpgrade.metadata");
         try
         {
@@ -60,17 +77,6 @@ public class AzureResizer extends JavaPlugin
         catch (IOException e)
         {
             e.printStackTrace();
-        }
-
-        if (upgraded)
-        {
-//            virtualMachineController.downgrade();
-            getLogger().info("Downgrading server");
-        }
-        else
-        {
-//            virtualMachineController.upgrade();
-            getLogger().info("Upgrading server");
         }
     }
 
